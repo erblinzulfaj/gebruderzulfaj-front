@@ -2,21 +2,23 @@
   <div>
     <LanguageSelector />
     <form @submit.prevent="handleSubmit" id="container">
-      <h1 id="name" style="margin-top: 100px; font-weight: bold">{{ $t('title') }}</h1>
+      <h1 id="name" style="margin-top: 100px; font-weight: bold;">
+        {{ $t("title") }}
+      </h1>
       <div class="wrapper">
         <div class="login-box">
-          <h2>{{ $t('welcome') }}</h2>
+          <h2>{{ $t("welcome") }}</h2>
           <div class="input-box">
             <input type="text" v-model.trim="formData.email" required />
-            <label>{{ $t('username') }}</label>
+            <label>{{ $t("username") }}</label>
             <span class="icon"></span>
           </div>
           <div class="input-box">
             <input type="password" v-model.trim="formData.password" required />
-            <label>{{ $t('password') }}</label>
+            <label>{{ $t("password") }}</label>
             <span class="icon"></span>
           </div>
-          <button id="btn">{{ $t('login') }}</button>
+          <button id="btn">{{ $t("login") }}</button>
         </div>
       </div>
     </form>
@@ -24,18 +26,18 @@
 </template>
 
 <script setup>
-import {onMounted, reactive} from 'vue';
-import { useRouter } from 'vue-router';
-import { useAuthStore } from '@/stores/auth.js';
-import LanguageSelector from '@/components/layout/LanguageSelector.vue';
+import { onMounted, reactive } from "vue";
+import { useRouter } from "vue-router";
+import { useAuthStore } from "@/stores/auth.js";
+import LanguageSelector from "@/components/layout/LanguageSelector.vue";
 
 onMounted(() => {
-    authStore.logOut();
+  authStore.logOut();
 });
 
 const formData = reactive({
-  email: '',
-  password: ''
+  email: "",
+  password: "",
 });
 
 const router = useRouter();
@@ -45,21 +47,21 @@ const handleSubmit = async () => {
   try {
     const response = await authStore.logIn(formData);
     console.log(response);
-    await router.push({ name: 'home' });
+    await router.push({ name: "home" });
   } catch (error) {
-    console.error('Error during login:', error);
+    console.error("Error during login:", error);
   }
 };
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 #container {
@@ -72,8 +74,9 @@ const handleSubmit = async () => {
   top: 20px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 50px;
+  font-size: 40px;
   color: green;
+  text-align: center;
 }
 
 .wrapper {
@@ -81,6 +84,7 @@ const handleSubmit = async () => {
   justify-content: center;
   align-items: center;
   height: calc(100vh - 100px);
+  padding: 20px;
 }
 
 #btn {
@@ -172,14 +176,57 @@ button {
   font-weight: 500;
 }
 
+@media (max-width: 768px) {
+  #name {
+    font-size: 30px;
+    top: 10px;
+  }
+
+  .login-box {
+    width: 90%;
+    padding: 20px;
+  }
+
+  h2 {
+    font-size: 1.8em;
+  }
+
+  .input-box input {
+    font-size: 0.9em;
+  }
+
+  button {
+    font-size: 0.9em;
+    height: 35px;
+  }
+}
+
 @media (max-width: 500px) {
   .login-box {
     width: 100%;
     border-radius: 0;
+    padding: 15px;
   }
 
-  .input-box {
-    width: 100%;
+  #name {
+    font-size: 24px;
+  }
+
+  h2 {
+    font-size: 1.6em;
+  }
+
+  .input-box input {
+    font-size: 0.8em;
+  }
+
+  button {
+    font-size: 0.8em;
+    height: 35px;
+  }
+
+  .wrapper {
+    padding: 10px;
   }
 }
 </style>

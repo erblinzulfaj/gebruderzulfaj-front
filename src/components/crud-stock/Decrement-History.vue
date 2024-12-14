@@ -65,7 +65,7 @@ onMounted(async () => {
       </table>
     </div>
     <div v-else>
-      <p style="color: red">{{$t('no_products_increment_in_the_last_10_days')}}</p>
+      <p style="color: red">{{$t('no_products_discount_in_the_last_10_days')}}</p>
     </div>
   </div>
 </template>
