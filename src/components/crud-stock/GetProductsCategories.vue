@@ -1,11 +1,13 @@
 <template>
   <div class="container">
-    <h1 style="color: green">{{$t('product_types')}}</h1>
+    <h1 style="color: green;">{{ $t("product_types") }}</h1>
     <div class="item-list">
       <div class="item" v-for="item in items" :key="item.name">
         <div class="item-content">
           <div class="item-title">{{ $t(item.name) }}</div>
-          <button @click="redirectTo(item.name)" class="btn btn-primary">{{$t('see')}}</button>
+          <button @click="redirectTo(item.name)" class="btn btn-primary">
+            {{ $t("see") }}
+          </button>
         </div>
       </div>
     </div>
@@ -13,34 +15,36 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { ref } from "vue";
+import { useRouter } from "vue-router";
 
 const items = ref([
-  { name: 'RAM' },
-  { name: 'KRAH' },
-  { name: 'HEKER' },
-  { name: 'LLAJSNE' },
-  { name: 'ADAPTER' },
-  { name: 'MEKANIZEM' },
-  { name: 'SHTOJSA' },
-  { name: 'TETJERA' }
+  { name: "RAM" },
+  { name: "KRAH" },
+  { name: "HEKER" },
+  { name: "LLAJSNE" },
+  { name: "ADAPTER" },
+  { name: "MEKANIZEM" },
+  { name: "SHTOJSA" },
+  { name: "TETJERA" },
 ]);
-
 
 const router = useRouter();
 
 const redirectTo = (itemName) => {
-
-  localStorage.setItem('selectedItem', itemName);
-  router.push('/products');
-
+  localStorage.setItem("selectedItem", itemName);
+  router.push("/products");
 };
 </script>
 
 <style scoped>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 .container {
-  max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
   padding: 20px;
 }
@@ -48,7 +52,7 @@ const redirectTo = (itemName) => {
 .item-list {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
+  gap: 15px;
 }
 
 .item {
@@ -59,6 +63,9 @@ const redirectTo = (itemName) => {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+h1 {
+  margin-bottom: 30px;
+}
 .item-content {
   display: flex;
   justify-content: space-between;
@@ -69,7 +76,14 @@ const redirectTo = (itemName) => {
   font-size: 18px;
   font-weight: bold;
 }
-
+@media screen and (max-width: 768px) {
+  .item-list {
+    grid-template-columns: 1fr;
+  }
+  .item-title {
+    margin-right: 10px;
+  }
+}
 .btn {
   padding: 10px 20px;
   color: #fff;

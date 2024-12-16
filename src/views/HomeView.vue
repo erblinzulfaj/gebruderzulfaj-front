@@ -3,7 +3,7 @@ import GetProductsCategories from "@/components/crud-stock/GetProductsCategories
 </script>
 
 <template>
-<GetProductsCategories />
+  <GetProductsCategories />
 </template>
 
 <style scoped>

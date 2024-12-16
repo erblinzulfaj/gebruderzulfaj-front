@@ -10,26 +10,26 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-import { useI18n } from 'vue-i18n';
+import { ref, onMounted } from "vue";
+import { useI18n } from "vue-i18n";
 
 const { locale } = useI18n();
 
 const languages = {
-  en: 'English',
-  de: 'German',
-  sq: 'Albanian'
+  en: "English",
+  de: "German",
+  sq: "Albanian",
 };
 
 const selectedLanguage = ref(locale.value);
 
 const changeLanguage = () => {
   locale.value = selectedLanguage.value;
-  localStorage.setItem('selectedLanguage', selectedLanguage.value); // Save to localStorage
+  localStorage.setItem("selectedLanguage", selectedLanguage.value); // Save to localStorage
 };
 
 onMounted(() => {
-  const savedLanguage = localStorage.getItem('selectedLanguage');
+  const savedLanguage = localStorage.getItem("selectedLanguage");
   if (savedLanguage) {
     selectedLanguage.value = savedLanguage;
     locale.value = savedLanguage; // Set locale to saved language
@@ -39,8 +39,12 @@ onMounted(() => {
 
 <style scoped>
 .language-selector {
-  position: fixed;
-  top: 10px;
+  position: relative;
+  display: flex;
+  justify-content: end;
+  align-items: end;
+  width: 100%;
+  top: 0px;
   right: 10px;
   z-index: 1000;
 }

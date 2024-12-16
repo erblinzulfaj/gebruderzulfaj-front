@@ -1,4 +1,6 @@
 <template>
+  <LanguageSelector />
+
   <nav class="navbar navbar-expand-lg navbar-light custom-navbar">
     <div class="container-fluid">
       <router-link to="/home" class="navbar-brand">
@@ -62,7 +64,6 @@
         </ul>
       </div>
     </div>
-    <LanguageSelector />
   </nav>
 </template>
 
@@ -111,9 +112,8 @@ export default {
   border-bottom: 1px solid #ddd;
   padding: 10px 0;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  z-index: 1000;
+  justify-content: space-between; /* Ensure spacing between items */
+  align-items: center; /* Center align items vertically */
 }
 
 .navbar-brand {
@@ -122,32 +122,10 @@ export default {
   color: #91c11e;
 }
 
-.navbar-toggler {
-  border: none;
-}
-
-.collapse {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  background-color: white;
-  z-index: 999;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease;
-}
-
-.collapse.show {
-  opacity: 1;
-  visibility: visible;
-}
-
 .navbar-nav .nav-link {
   font-size: 16px;
   color: #666;
-  margin: 10px 20px;
+  margin-right: 20px;
 }
 
 .navbar-nav .nav-link:hover {
@@ -159,6 +137,6 @@ export default {
 }
 
 .language-selector {
-  margin-left: auto;
+  margin-left: auto; /* Push LanguageSelector to the right */
 }
 </style>
