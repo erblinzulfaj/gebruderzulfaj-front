@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Create an axios instance
 const instance = axios.create({
-  baseURL: "https://gebruderzulfaj-d1f80ddccd10.herokuapp.com", // Backend URL
+  baseURL: process.env.VUE_APP_BACKEND_URL, // Backend URL
   headers: { "Content-Type": "application/json" },
 });
 
