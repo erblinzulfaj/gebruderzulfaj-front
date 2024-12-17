@@ -1,15 +1,23 @@
 import { defineStore } from "pinia";
 import client from "@/helpers/client.js";
-import { ref, computed } from "vue";
+import { ref, computed, watch } from "vue";
 
 export const useAuthStore = defineStore("auth", () => {
   const token = ref(localStorage.getItem("token") || null);
 
+  // Watch for token changes and update localStorage
+  watch(token, (newToken) => {
+    if (newToken) {
+      localStorage.setItem("token", newToken);
+    } else {
+      localStorage.removeItem("token");
+    }
+  });
+
   const logIn = async (user) => {
     try {
       const response = await client.post("/api/auth/authenticate", user);
-      if (response.data) {
-        localStorage.setItem("token", response.data.token);
+      if (response.data && response.data.token) {
         token.value = response.data.token;
       }
       return response.data;
@@ -22,9 +30,7 @@ export const useAuthStore = defineStore("auth", () => {
   function logOut() {
     if (isLoggedIn.value) {
       console.log("Logging out...");
-      localStorage.removeItem("token");
-      token.value = null;
-      // Opsional: Ridrejto përdoruesin te faqja e login
+      token.value = null; // This will trigger localStorage removal via watch
       window.location.href = "/login";
     }
   }
