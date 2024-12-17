@@ -6,32 +6,64 @@ const instance = axios.create({
   headers: { "Content-Type": "application/json" },
 });
 
-// Add a request interceptor to add the token to the headers
-instance.interceptors.request.use(
-  function (config) {
-    // Get the token from localStorage (or wherever you're storing it)
-    const token = localStorage.getItem("token");
+let retryQueue = [];
 
-    // If the token exists, add it to the Authorization header
+// Add a request interceptor
+instance.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("token");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
-
     return config;
   },
-  function (error) {
-    // Handle request errors
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
-// Optionally, you can also handle response errors globally (if needed)
+// Handle 401 Unauthorized response by retrying the request
 instance.interceptors.response.use(
   (response) => response,
-  (error) => {
-    console.error("Response error:", error);
+  async (error) => {
+    if (error.response?.status === 401) {
+      const token = localStorage.getItem("token");
+
+      if (token) {
+        // Retry the request if token is found after a reload
+        error.config.headers["Authorization"] = `Bearer ${token}`;
+        return axios(error.config);
+      }
+    }
     return Promise.reject(error);
   }
 );
 
 export default instance;
+// // Add a request interceptor to add the token to the headers
+// instance.interceptors.request.use(
+//   function (config) {
+//     // Get the token from localStorage (or wherever you're storing it)
+//     const token = localStorage.getItem("token");
+
+//     // If the token exists, add it to the Authorization header
+//     if (token) {
+//       config.headers.Authorization = `Bearer ${token}`;
+//     }
+
+//     return config;
+//   },
+//   function (error) {
+//     // Handle request errors
+//     return Promise.reject(error);
+//   }
+// );
+
+// // Optionally, you can also handle response errors globally (if needed)
+// instance.interceptors.response.use(
+//   (response) => response,
+//   (error) => {
+//     console.error("Response error:", error);
+//     return Promise.reject(error);
+//   }
+// );
+
+// export default instance;
