@@ -2,7 +2,7 @@ import axios from "axios";
 import { useAuthStore } from "@/stores/auth"; // Adjust the path to your auth store
 
 const client = axios.create({
-  baseURL: process.env.VUE_APP_BACKEND_URL, // Use env variable
+  baseURL: "https://gebruderzulfaj-d1f80ddccd10.herokuapp.com", // Use env variable
   headers: { "Content-Type": "application/json" },
 });
 
