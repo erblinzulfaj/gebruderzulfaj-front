@@ -16,7 +16,7 @@ const router = createRouter({
   history: createWebHistory(),
   routes: [
     {
-      path: "https://www.xn--stock-gebrderzulfaj-fbc.com/ ",
+      path: "https://www.xn--stock-gebrderzulfaj-fbc.com/login ",
       name: "login",
       component: Login,
     },
