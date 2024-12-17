@@ -16,52 +16,52 @@ const router = createRouter({
   history: createWebHistory(),
   routes: [
     {
-      path: "https://www.xn--stock-gebrderzulfaj-fbc.com/login ",
+      path: "/",
       name: "login",
       component: Login,
     },
     {
-      path: "https://www.xn--stock-gebrderzulfaj-fbc.com/home",
+      path: "/home",
       name: "home",
       component: GetProductsCategories,
     },
     {
-      path: "https://www.xn--stock-gebrderzulfaj-fbc.com/products",
+      path: "/products",
       name: "Products",
       component: GetProductsByCategory,
     },
     {
-      path: "https://www.xn--stock-gebrderzulfaj-fbc.com/less-quantity",
+      path: "/less-quantity",
       name: "less-quantity",
       component: LessQuantity,
     },
     {
-      path: "https://www.xn--stock-gebrderzulfaj-fbc.com/add",
+      path: "/add",
       name: "add-product",
       component: AddProduct,
     },
     {
-      path: "https://www.xn--stock-gebrderzulfaj-fbc.com/discount-history",
+      path: "/discount-history",
       name: "discount",
       component: DecrementHistory,
     },
     {
-      path: "https://www.xn--stock-gebrderzulfaj-fbc.com/increment-history",
+      path: "/increment-history",
       name: "increment-history",
       component: IncrementHistory,
     },
     {
-      path: "https://www.xn--stock-gebrderzulfaj-fbc.com/update/:id",
+      path: "/update/:id",
       name: "update",
       component: ModifyProduct,
     },
     {
-      path: "https://www.xn--stock-gebrderzulfaj-fbc.com/file-reader",
+      path: "/file-reader",
       name: "file-reader",
       component: FileReader,
     },
     {
-      path: "https://www.xn--stock-gebrderzulfaj-fbc.com/update-quantity",
+      path: "/update-quantity",
       name: "update-quantity",
       component: UpdateQuantity,
     },
