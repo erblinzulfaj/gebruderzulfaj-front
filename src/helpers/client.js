@@ -1,21 +1,42 @@
 import axios from "axios";
-import { useAuthStore } from "@/stores/auth"; // Adjust the path to your auth store
 
-const client = axios.create({
-  baseURL: "https://gebruderzulfaj-d1f80ddccd10.herokuapp.com", // Use env variable
+// Create an axios instance
+const instance = axios.create({
+  baseURL: "https://gebruderzulfaj-d1f80ddccd10.herokuapp.com", // Backend URL
   headers: { "Content-Type": "application/json" },
 });
 
-// Add request interceptor to attach the token dynamically
-client.interceptors.request.use(
+// Add a request interceptor to include the token dynamically
+instance.interceptors.request.use(
   (config) => {
-    const authStore = useAuthStore(); // Access the Pinia auth store
-    if (authStore.token) {
-      config.headers.Authorization = `Bearer ${authStore.token}`;
+    const token = localStorage.getItem("token"); // Fetch token from localStorage
+
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+      console.log("Token being sent:", token); // Debugging: log the token
+    } else {
+      console.warn("No token found, request sent without Authorization header");
     }
+
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => {
+    console.error("Error in request interceptor:", error);
+    return Promise.reject(error);
+  }
 );
 
-export default client;
+// Optionally, add a response interceptor to handle errors globally
+instance.interceptors.response.use(
+  (response) => response, // Pass through successful responses
+  (error) => {
+    console.error("Response error:", error.response?.data || error.message);
+    if (error.response?.status === 401) {
+      console.warn("Unauthorized! Consider logging the user out.");
+      // Optionally handle token expiry here, like redirecting to login
+    }
+    return Promise.reject(error);
+  }
+);
+
+export default instance;
